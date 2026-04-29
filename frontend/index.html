@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Traffic Forecasting Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js" defer></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="toolbar" aria-label="Prediction controls">
+        <div>
+          <h1>Traffic Forecast</h1>
+          <p>GNN + LSTM inference for the next 12 five-minute steps.</p>
+        </div>
+        <label class="api-field">
+          API URL
+          <input id="apiUrl" type="url" value="http://127.0.0.1:8000" />
+        </label>
+      </section>
+
+      <section class="workspace">
+        <aside class="controls">
+          <label>
+            Sensor
+            <select id="sensorSelect"></select>
+          </label>
+
+          <label>
+            Past traffic values
+            <textarea id="trafficInput" rows="8" spellcheck="false"></textarea>
+          </label>
+
+          <div class="button-row">
+            <button id="sampleBtn" type="button">Load Sample</button>
+            <button id="randomBtn" type="button">Randomize</button>
+          </div>
+
+          <label class="checkbox-row">
+            <input id="returnAllSensors" type="checkbox" />
+            Include all sensors in API response
+          </label>
+
+          <button id="predictBtn" class="primary" type="button">Predict</button>
+          <p id="status" class="status" role="status"></p>
+        </aside>
+
+        <section class="visualization" aria-label="Traffic chart">
+          <div class="chart-wrap">
+            <canvas id="forecastChart"></canvas>
+          </div>
+          <div class="result-strip">
+            <div>
+              <span>Selected sensor</span>
+              <strong id="selectedSensor">-</strong>
+            </div>
+            <div>
+              <span>Model</span>
+              <strong id="modelFamily">-</strong>
+            </div>
+            <div>
+              <span>Next step</span>
+              <strong id="nextStep">-</strong>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Future step</th>
+                <th>Predicted speed</th>
+              </tr>
+            </thead>
+            <tbody id="predictionRows"></tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
+
